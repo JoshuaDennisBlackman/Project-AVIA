@@ -1,0 +1,4 @@
+W:\AVIA\NetworkClient\NetworkClient\bin\Release\NetworkClient.exe
+W:\AVIA\NetworkClient\NetworkClient\bin\Release\NetworkClient.pdb
+W:\AVIA\NetworkClient\NetworkClient\obj\x86\Release\NetworkClient.exe
+W:\AVIA\NetworkClient\NetworkClient\obj\x86\Release\NetworkClient.pdb

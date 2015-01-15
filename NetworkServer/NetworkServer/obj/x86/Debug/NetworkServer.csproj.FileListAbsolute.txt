@@ -1,0 +1,12 @@
+C:\Users\MONEYBAGZ\AppData\Local\Temporary Projects\NetworkServer\bin\Debug\NetworkServer.exe
+C:\Users\MONEYBAGZ\AppData\Local\Temporary Projects\NetworkServer\bin\Debug\NetworkServer.pdb
+C:\Users\MONEYBAGZ\AppData\Local\Temporary Projects\NetworkServer\obj\x86\Debug\NetworkServer.exe
+C:\Users\MONEYBAGZ\AppData\Local\Temporary Projects\NetworkServer\obj\x86\Debug\NetworkServer.pdb
+W:\AVIA\NetworkServer\NetworkServer\obj\x86\Debug\NetworkServer.exe
+W:\AVIA\NetworkServer\NetworkServer\obj\x86\Debug\NetworkServer.pdb
+W:\AVIA\NetworkServer\NetworkServer\bin\Debug\NetworkServer.exe
+W:\AVIA\NetworkServer\NetworkServer\bin\Debug\NetworkServer.pdb
+W:\AVIA\Project-AVIA\NetworkServer\NetworkServer\obj\x86\Debug\NetworkServer.exe
+W:\AVIA\Project-AVIA\NetworkServer\NetworkServer\obj\x86\Debug\NetworkServer.pdb
+W:\AVIA\Project-AVIA\NetworkServer\NetworkServer\bin\Debug\NetworkServer.exe
+W:\AVIA\Project-AVIA\NetworkServer\NetworkServer\bin\Debug\NetworkServer.pdb

@@ -1,0 +1,6 @@
+W:\AVIA\NetworkServer\NetworkServer\bin\Release\NetworkServer.exe
+W:\AVIA\NetworkServer\NetworkServer\bin\Release\NetworkServer.pdb
+W:\AVIA\NetworkServer\NetworkServer\obj\x86\Release\NetworkServer.exe
+W:\AVIA\NetworkServer\NetworkServer\obj\x86\Release\NetworkServer.pdb
+W:\AVIA\Project-AVIA\NetworkServer\NetworkServer\obj\x86\Release\NetworkServer.exe
+W:\AVIA\Project-AVIA\NetworkServer\NetworkServer\obj\x86\Release\NetworkServer.pdb

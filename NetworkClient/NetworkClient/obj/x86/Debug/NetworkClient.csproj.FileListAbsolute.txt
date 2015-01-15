@@ -1,0 +1,12 @@
+C:\Users\MONEYBAGZ\AppData\Local\Temporary Projects\NetworkClient\bin\Debug\NetworkClient.exe
+C:\Users\MONEYBAGZ\AppData\Local\Temporary Projects\NetworkClient\bin\Debug\NetworkClient.pdb
+C:\Users\MONEYBAGZ\AppData\Local\Temporary Projects\NetworkClient\obj\x86\Debug\NetworkClient.exe
+C:\Users\MONEYBAGZ\AppData\Local\Temporary Projects\NetworkClient\obj\x86\Debug\NetworkClient.pdb
+W:\AVIA\NetworkClient\NetworkClient\obj\x86\Debug\NetworkClient.exe
+W:\AVIA\NetworkClient\NetworkClient\obj\x86\Debug\NetworkClient.pdb
+W:\AVIA\NetworkClient\NetworkClient\bin\Debug\NetworkClient.exe
+W:\AVIA\NetworkClient\NetworkClient\bin\Debug\NetworkClient.pdb
+W:\AVIA\Project-AVIA\NetworkClient\NetworkClient\obj\x86\Debug\NetworkClient.exe
+W:\AVIA\Project-AVIA\NetworkClient\NetworkClient\obj\x86\Debug\NetworkClient.pdb
+W:\AVIA\Project-AVIA\NetworkClient\NetworkClient\bin\Debug\NetworkClient.exe
+W:\AVIA\Project-AVIA\NetworkClient\NetworkClient\bin\Debug\NetworkClient.pdb
