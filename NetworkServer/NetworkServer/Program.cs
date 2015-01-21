@@ -8,17 +8,14 @@ using System.Threading;
 
 namespace NetworkServer
 {
+
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(@"╔═╗╦═╗╔═╗ ╦╔═╗╔═╗╔╦╗  ╔═╗╦  ╦╦╔═╗  ╔═╗╔═╗╦═╗╦  ╦╔═╗╦═╗");
-            Console.WriteLine(@"╠═╝╠╦╝║ ║ ║║╣ ║   ║   ╠═╣╚╗╔╝║╠═╣  ╚═╗║╣ ╠╦╝╚╗╔╝║╣ ╠╦╝");
-            Console.WriteLine(@"╩  ╩╚═╚═╝╚╝╚═╝╚═╝ ╩   ╩ ╩ ╚╝ ╩╩ ╩  ╚═╝╚═╝╩╚═ ╚╝ ╚═╝╩╚═");
-           
             Server s = new Server();
-
         }
+
     }
 
     class Server
@@ -28,7 +25,13 @@ namespace NetworkServer
 
         public Server()
         {
+            Console.WriteLine(@"╔═╗╦═╗╔═╗ ╦╔═╗╔═╗╔╦╗  ╔═╗╦  ╦╦╔═╗  ╔═╗╔═╗╦═╗╦  ╦╔═╗╦═╗");
+            Console.WriteLine(@"╠═╝╠╦╝║ ║ ║║╣ ║   ║   ╠═╣╚╗╔╝║╠═╣  ╚═╗║╣ ╠╦╝╚╗╔╝║╣ ╠╦╝");
+            Console.WriteLine(@"╩  ╩╚═╚═╝╚╝╚═╝╚═╝ ╩   ╩ ╩ ╚╝ ╩╩ ╩  ╚═╝╚═╝╩╚═ ╚╝ ╚═╝╩╚═");
+            w(ConsoleColor.Cyan, "Initializing Server...");
+            w(ConsoleColor.Cyan, "Connecting to Database...");
             this.tcpListener = new TcpListener(IPAddress.Any, 3000);
+            w(ConsoleColor.Cyan, "Listening for clients on port 3000...");
             this.listenThread = new Thread(new ThreadStart(ListenForClients));
             this.listenThread.Start();
         }
@@ -53,10 +56,10 @@ namespace NetworkServer
         {
             TcpClient tcpClient = (TcpClient)client;
             NetworkStream clientStream = tcpClient.GetStream();
-
+            DatabaseInterface db = new DatabaseInterface("credentials.txt");
             byte[] message = new byte[4096];
             int bytesRead;
-            Console.WriteLine("[SERVER] " + tcpClient.Client.RemoteEndPoint + " has connected.");
+            w(ConsoleColor.Green, "Inbound connection from " + tcpClient.Client.RemoteEndPoint + ".");
             while (true)
             {
                 bytesRead = 0;
@@ -66,7 +69,7 @@ namespace NetworkServer
                     //blocks until a client sends a message
                     bytesRead = clientStream.Read(message, 0, 4096);
                     ASCIIEncoding encoder = new ASCIIEncoding();
-                    Console.WriteLine("[CLIENT " + tcpClient.Client.RemoteEndPoint + "] " + encoder.GetString(message, 0, bytesRead));
+                    w(ConsoleColor.Yellow, encoder.GetString(message, 0, bytesRead));
                 }
                 catch
                 {
@@ -81,9 +84,17 @@ namespace NetworkServer
                 }
             }
 
-            Console.WriteLine("[SERVER] " + tcpClient.Client.RemoteEndPoint + " has disconnected from the server.");
+            w(ConsoleColor.Red, tcpClient.Client.RemoteEndPoint + " has disconnected from the server.");
             tcpClient.Close();
             
         }
+
+        public void w(ConsoleColor color, string text)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine("[" + DateTime.Now.ToString("h:mm:ss tt") + "] >> " + text);
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
     }
 }

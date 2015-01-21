@@ -10,3 +10,6 @@ W:\AVIA\Project-AVIA\NetworkServer\NetworkServer\obj\x86\Debug\NetworkServer.exe
 W:\AVIA\Project-AVIA\NetworkServer\NetworkServer\obj\x86\Debug\NetworkServer.pdb
 W:\AVIA\Project-AVIA\NetworkServer\NetworkServer\bin\Debug\NetworkServer.exe
 W:\AVIA\Project-AVIA\NetworkServer\NetworkServer\bin\Debug\NetworkServer.pdb
+W:\AVIA\Project-AVIA\NetworkServer\NetworkServer\obj\x86\Debug\NetworkServer.csprojResolveAssemblyReference.cache
+W:\AVIA\Project-AVIA\NetworkServer\NetworkServer\bin\Debug\NetworkServer.exe.config
+W:\AVIA\Project-AVIA\NetworkServer\NetworkServer\bin\Debug\MySql.Data.dll
