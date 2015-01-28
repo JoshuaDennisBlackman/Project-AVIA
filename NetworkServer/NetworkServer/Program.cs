@@ -5,6 +5,7 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Data;
 
 namespace NetworkServer
 {
@@ -29,7 +30,7 @@ namespace NetworkServer
             Console.WriteLine(@"╠═╝╠╦╝║ ║ ║║╣ ║   ║   ╠═╣╚╗╔╝║╠═╣  ╚═╗║╣ ╠╦╝╚╗╔╝║╣ ╠╦╝");
             Console.WriteLine(@"╩  ╩╚═╚═╝╚╝╚═╝╚═╝ ╩   ╩ ╩ ╚╝ ╩╩ ╩  ╚═╝╚═╝╩╚═ ╚╝ ╚═╝╩╚═");
             w(ConsoleColor.Cyan, "Initializing Server...");
-            w(ConsoleColor.Cyan, "Connecting to Database...");
+            w(ConsoleColor.Cyan, "Testing Database Connection");
             this.tcpListener = new TcpListener(IPAddress.Any, 3000);
             w(ConsoleColor.Cyan, "Listening for clients on port 3000...");
             this.listenThread = new Thread(new ThreadStart(ListenForClients));
@@ -56,7 +57,7 @@ namespace NetworkServer
         {
             TcpClient tcpClient = (TcpClient)client;
             NetworkStream clientStream = tcpClient.GetStream();
-            DatabaseInterface db = new DatabaseInterface("credentials.txt");
+            DatabaseInterface db = new DatabaseInterface("credentials.txt");  
             byte[] message = new byte[4096];
             int bytesRead;
             w(ConsoleColor.Green, "Inbound connection from " + tcpClient.Client.RemoteEndPoint + ".");
@@ -69,7 +70,62 @@ namespace NetworkServer
                     //blocks until a client sends a message
                     bytesRead = clientStream.Read(message, 0, 4096);
                     ASCIIEncoding encoder = new ASCIIEncoding();
-                    w(ConsoleColor.Yellow, encoder.GetString(message, 0, bytesRead));
+                    string input = encoder.GetString(message, 0, bytesRead);
+
+
+                    if(input == "meeting"){
+                        DataTable data = db.ExecuteQuery("SELECT details FROM  `meetings` LIMIT 0 , 30");
+                        w(ConsoleColor.Yellow, tcpClient.Client.RemoteEndPoint + " requested the meetings table.");
+                        if (data != null)
+                        {
+                            foreach (DataRow row in data.Rows)
+                            {
+                                foreach (var item in row.ItemArray)
+                                {
+                                    string jsonString = item.ToString();
+                                    byte[] id = new byte[1] { 0x32 };
+                                    byte[] json = encoder.GetBytes(jsonString);
+                                    byte[] l = BitConverter.GetBytes(1 + json.Length);
+                                    byte[] buffer = new byte[5 + json.Length];
+                                    Buffer.BlockCopy(l, 0, buffer, 0, 4);
+                                    Buffer.BlockCopy(id, 0, buffer, 4, 1);
+                                    Buffer.BlockCopy(json, 0, buffer, 5, json.Length);
+                                    clientStream.Write(buffer, 0, buffer.Length);
+                                    clientStream.Flush();
+                                }
+                            }
+                        }
+                    } else if(input == "book"){ 
+                        bool status = db.BookMeeting("details here");
+                        if (status == false)
+                        {
+                            string jsonString = "Meeting room x failed to be booked";
+                            byte[] id = new byte[1] { 0x32 };
+                            byte[] json = encoder.GetBytes(jsonString);
+                            byte[] l = BitConverter.GetBytes(1 + json.Length);
+                            byte[] buffer = new byte[5 + json.Length];
+                            Buffer.BlockCopy(l, 0, buffer, 0, 4);
+                            Buffer.BlockCopy(id, 0, buffer, 4, 1);
+                            Buffer.BlockCopy(json, 0, buffer, 5, json.Length);
+                            clientStream.Write(buffer, 0, buffer.Length);
+                            clientStream.Flush();
+                        }
+                        else if(status == true)
+                        {
+                            string jsonString = "Meeting room x has been booked";
+                            byte[] id = new byte[1] { 0x32 };
+                            byte[] json = encoder.GetBytes(jsonString);
+                            byte[] l = BitConverter.GetBytes(1 + json.Length);
+                            byte[] buffer = new byte[5 + json.Length];
+                            Buffer.BlockCopy(l, 0, buffer, 0, 4);
+                            Buffer.BlockCopy(id, 0, buffer, 4, 1);
+                            Buffer.BlockCopy(json, 0, buffer, 5, json.Length);
+                            clientStream.Write(buffer, 0, buffer.Length);
+                            clientStream.Flush();
+                        }
+                    }
+
+
                 }
                 catch
                 {

@@ -10,3 +10,4 @@ W:\AVIA\Project-AVIA\NetworkClient\NetworkClient\obj\x86\Debug\NetworkClient.exe
 W:\AVIA\Project-AVIA\NetworkClient\NetworkClient\obj\x86\Debug\NetworkClient.pdb
 W:\AVIA\Project-AVIA\NetworkClient\NetworkClient\bin\Debug\NetworkClient.exe
 W:\AVIA\Project-AVIA\NetworkClient\NetworkClient\bin\Debug\NetworkClient.pdb
+W:\AVIA\Project-AVIA\NetworkClient\NetworkClient\obj\x86\Debug\NetworkClient.csprojResolveAssemblyReference.cache
