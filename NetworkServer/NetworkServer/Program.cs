@@ -7,6 +7,10 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Data;
 
+
+// for the json http://178.62.24.139/db.php
+// this returns whole db in json xD
+
 namespace NetworkServer
 {
 
