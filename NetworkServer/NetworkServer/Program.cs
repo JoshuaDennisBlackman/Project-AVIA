@@ -74,7 +74,7 @@ namespace NetworkServer
 
 
                     if(input == "meeting"){
-                        DataTable data = db.ExecuteQuery("SELECT details FROM  `meetings` LIMIT 0 , 30");
+                        DataTable data = db.ExecuteQuery("SELECT id FROM  `meetings` LIMIT 0 , 30");
                         w(ConsoleColor.Yellow, tcpClient.Client.RemoteEndPoint + " requested the meetings table.");
                         if (data != null)
                         {
@@ -96,7 +96,7 @@ namespace NetworkServer
                             }
                         }
                     } else if(input == "book"){ 
-                        bool status = db.BookMeeting("details here");
+                        bool status = db.BookMeeting("2","test","3","test","test","test","test","test","test");
                         if (status == false)
                         {
                             string jsonString = "Meeting room x failed to be booked";

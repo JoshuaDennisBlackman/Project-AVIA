@@ -71,18 +71,18 @@ namespace NetworkServer
             }
             else 
             { 
-               //throw new NAIMException("Unable to connect to central database."); 
                 w(ConsoleColor.Red, "Could not execute query.");
                 return null;
             }
         }
 
-        public bool BookMeeting(string details)
-        {
-            
+        public bool BookMeeting(string people, string @ref, string floor, string room, string style, string timestart, string timeend, string catering, string comments)
+        {        
             try
             {
-                DataTable userCheck = ExecuteQuery("INSERT INTO meetings (details) VALUES ('" + details + "');");
+                // prints out the mysql statement, currently doesnt have time included.
+                //w(ConsoleColor.DarkMagenta, "INSERT INTO meetings (people, ref, floor, room, style, catering, comments) VALUES ('" + people + "', '" + @ref + "'," + floor + "','" + room + "','" + style + "','" + catering + "','" + comments + "');");
+                DataTable userCheck = ExecuteQuery("INSERT INTO meetings (people, ref, floor, room, style, catering, comments) VALUES ('" + people + "', '" + @ref + "','" + floor + "','" + room + "','" + style + "','" + catering + "','" + comments + "');");      
                 w(ConsoleColor.Green, "Booking inserted succesfully.");
                 return true;
             }
