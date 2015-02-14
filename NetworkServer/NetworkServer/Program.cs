@@ -6,6 +6,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Data;
+using System.IO;
+using System.Web;
 
 
 // for the json http://178.62.24.139/db.php
@@ -78,26 +80,29 @@ namespace NetworkServer
 
 
                     if(input == "meeting"){
-                        DataTable data = db.ExecuteQuery("SELECT id FROM  `meetings` LIMIT 0 , 30");
+                        string jsonString = null;
+                        string jsonData = GET("http://178.62.24.139/db.php");
+                        //w(ConsoleColor.Cyan, jsonData);
                         w(ConsoleColor.Yellow, tcpClient.Client.RemoteEndPoint + " requested the meetings table.");
-                        if (data != null)
+                        if (jsonData != null)
                         {
-                            foreach (DataRow row in data.Rows)
+                            Friends facebookFriends = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<Friends>(jsonData);
+
+                            foreach (var item in facebookFriends.data)
                             {
-                                foreach (var item in row.ItemArray)
-                                {
-                                    string jsonString = item.ToString();
-                                    byte[] id = new byte[1] { 0x32 };
-                                    byte[] json = encoder.GetBytes(jsonString);
-                                    byte[] l = BitConverter.GetBytes(1 + json.Length);
-                                    byte[] buffer = new byte[5 + json.Length];
-                                    Buffer.BlockCopy(l, 0, buffer, 0, 4);
-                                    Buffer.BlockCopy(id, 0, buffer, 4, 1);
-                                    Buffer.BlockCopy(json, 0, buffer, 5, json.Length);
-                                    clientStream.Write(buffer, 0, buffer.Length);
-                                    clientStream.Flush();
-                                }
+                                Console.WriteLine("id: {0}, name: {1}", item.id, item.@ref);
+                                jsonString = jsonString + item.id;
                             }
+
+                            byte[] id = new byte[1] { 0x32 };
+                            byte[] json = encoder.GetBytes(jsonString);
+                            byte[] l = BitConverter.GetBytes(1 + json.Length);
+                            byte[] buffer = new byte[5 + json.Length];
+                            Buffer.BlockCopy(l, 0, buffer, 0, 4);
+                            Buffer.BlockCopy(id, 0, buffer, 4, 1);
+                            Buffer.BlockCopy(json, 0, buffer, 5, json.Length);
+                            clientStream.Write(buffer, 0, buffer.Length);
+                            clientStream.Flush();
                         }
                     } else if(input == "book"){ 
                         bool status = db.BookMeeting("2","test","3","test","test","test","test","test","test");
@@ -156,5 +161,50 @@ namespace NetworkServer
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
+        public static string GET(string url)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(stream);
+      
+                string data = reader.ReadToEnd();
+     
+                reader.Close();
+                stream.Close();
+     
+                return data;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+     
+            return null;
+        }
+
+    }
+
+    public class Friends
+    {
+
+        public List<FacebookFriend> data { get; set; }
+    }
+
+    public class FacebookFriend
+    {
+
+        public int id { get; set; }
+        public string people { get; set; }
+        public string @ref { get; set; }
+        public string floor { get; set; }
+        public string room { get; set; }
+        public string style { get; set; }
+        public string timestart { get; set; }
+        public string timeend { get; set; }
+        public string catering { get; set; }
+        public string comments { get; set; }
     }
 }
